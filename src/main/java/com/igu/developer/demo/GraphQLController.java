@@ -1,5 +1,6 @@
 package com.igu.developer.demo;
 
+import com.igu.developer.demo.service.CustomService;
 import graphql.ExecutionInput;
 import graphql.ExecutionResult;
 import graphql.GraphQL;
@@ -21,14 +22,16 @@ public class GraphQLController {
 
     private final GraphQL graphQL;
 
-    public GraphQLController(CarService carService) {
+    public GraphQLController(CarService carService, CustomService customService) {
         GraphQLSchema schema = new GraphQLSchemaGenerator()
                 .withResolverBuilders(
                         //Resolve by annotations
                         new AnnotatedResolverBuilder())
                 .withOperationsFromSingleton(carService)
+                .withOperationsFromSingleton(customService)
                 .withValueMapperFactory(new JacksonValueMapperFactory())
                 .generate();
+
         graphQL = GraphQL.newGraphQL(schema).build();
     }
 
