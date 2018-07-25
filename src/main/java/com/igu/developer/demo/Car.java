@@ -7,10 +7,9 @@ import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Entity;
 
-@Entity
-@Getter @Setter
+@Data
 @NoArgsConstructor
-@ToString @EqualsAndHashCode
+@Entity
 public class Car {
     @Id @GeneratedValue
     @GraphQLQuery(name = "id", description = "A car's id")
